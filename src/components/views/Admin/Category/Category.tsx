@@ -13,6 +13,7 @@ import { CiMenuKebab } from "react-icons/ci";
 import { COLUMN_LIST_CATEGORY } from "./Category.constants";
 import { LIMIT_LIST } from "@/constants/list-constants";
 import useCategory from "./useCategory";
+import InputFile from "@/components/ui/InputFile";
 
 const Category = () => {
   const { push, isReady, query } = useRouter();
@@ -92,6 +93,7 @@ const Category = () => {
           totalPages={dataCategory?.pagination.totalPages}
         />
       )}
+      <InputFile name="input" isDropable/>
     </section>
   );
 };
