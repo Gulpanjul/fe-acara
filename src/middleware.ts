@@ -21,7 +21,7 @@ export async function middleware(request: NextRequest) {
   if (pathname.startsWith("/admin")) {
     if (!token) {
       const url = new URL("/auth/login", request.url);
-      url.searchParams.set("callbackUrl", request.url);
+      url.searchParams.set("callbackUrl", encodeURI(request.url));
       return NextResponse.redirect(url);
     }
     
@@ -38,7 +38,7 @@ export async function middleware(request: NextRequest) {
   if (pathname.startsWith("/member")) {
     if (!token) {
         const url = new URL("/auth/login", request.url);
-        url.searchParams.set("callbackUrl", request.url);
+        url.searchParams.set("callbackUrl", encodeURI(request.url));
         return NextResponse.redirect(url);
     }
 
@@ -49,5 +49,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/auth/:path*", "/admin/:path*, /member/:path*"],
+  matcher: ["/auth/:path*", "/admin/:path*", "/member/:path*"],
 };
