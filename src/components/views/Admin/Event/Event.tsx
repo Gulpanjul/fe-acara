@@ -3,14 +3,14 @@ import { Chip, useDisclosure } from "@nextui-org/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Key, ReactNode, useCallback, useEffect } from "react";
+import { COLUMN_LISTS_EVENT } from "./Event.constants";
 import useChangeUrl from "@/hooks/useChangeUrl";
 import useEvent from "./useEvent";
-import { COLUMN_LIST_EVENT } from "./Event.constants";
 import DropdownAction from "@/components/commons/DropdownAction";
 import AddEventModal from "./AddEventModal";
 
 const Event = () => {
-  const { push, query, isReady } = useRouter();
+  const { push, isReady, query } = useRouter();
   const {
     dataEvents,
     isLoadingEvents,
@@ -21,9 +21,10 @@ const Event = () => {
     setSelectedId,
   } = useEvent();
 
+  const { setUrl } = useChangeUrl();
+
   const addEventModal = useDisclosure();
   const deleteEventModal = useDisclosure();
-  const { setUrl } = useChangeUrl();
 
   useEffect(() => {
     if (isReady) {
@@ -53,14 +54,17 @@ const Event = () => {
               size="sm"
               variant="flat"
             >
-              {cellValue ? "Published" : "Unpublished"}
+              {cellValue === true ? "Published" : "Not Published"}
             </Chip>
           );
         case "actions":
           return (
             <DropdownAction
               onPressButtonDetail={() => push(`/admin/event/${event._id}`)}
-              onPressButtonDelete={() => setSelectedId(`${event._id}`)}
+              onPressButtonDelete={() => {
+                setSelectedId(`${event._id}`);
+                deleteEventModal.onOpen();
+              }}
             />
           );
         default:
@@ -75,7 +79,7 @@ const Event = () => {
       {Object.keys(query).length > 0 && (
         <DataTable
           buttonTopContentLabel="Create Event"
-          columns={COLUMN_LIST_EVENT}
+          columns={COLUMN_LISTS_EVENT}
           data={dataEvents?.data || []}
           emptyContent="Event is empty"
           isLoading={isLoadingEvents || isRefetchingEvents}
@@ -84,10 +88,7 @@ const Event = () => {
           totalPages={dataEvents?.pagination.totalPages}
         />
       )}
-      <AddEventModal
-        {...addEventModal}
-        refetchEvents={refetchEvents}
-      />
+      <AddEventModal {...addEventModal} refetchEvents={refetchEvents} />
     </section>
   );
 };

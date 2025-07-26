@@ -20,6 +20,7 @@ import InputFile from "@/components/ui/InputFile";
 import { useEffect } from "react";
 import { ICategory } from "@/types/Category";
 import { IRegency } from "@/types/Event";
+import { getLocalTimeZone, now } from "@internationalized/date";
 
 interface PropTypes {
   isOpen: boolean;
@@ -34,9 +35,9 @@ const AddEventModal = (props: PropTypes) => {
     control,
     errors,
     handleSubmitForm,
-    handleAddCategory,
-    isPendingMutateAddCategory,
-    isSuccessMutateAddCategory,
+    handleAddEvent,
+    isPendingMutateAddEvent,
+    isSuccessMutateAddEvent,
 
     preview,
     handleUploadBanner,
@@ -52,14 +53,14 @@ const AddEventModal = (props: PropTypes) => {
   } = useAddEventModal();
 
   useEffect(() => {
-    if (isSuccessMutateAddCategory) {
+    if (isSuccessMutateAddEvent) {
       onClose();
       refetchEvents();
     }
-  }, [isSuccessMutateAddCategory]);
+  }, [isSuccessMutateAddEvent]);
 
   const disabledSubmit =
-    isPendingMutateAddCategory ||
+    isPendingMutateAddEvent ||
     isPendingMutateUploadFile ||
     isPendingMutateDeleteFile;
 
@@ -71,7 +72,7 @@ const AddEventModal = (props: PropTypes) => {
       scrollBehavior="inside"
       onClose={() => handleOnClose(onClose)}
     >
-      <form onSubmit={handleSubmitForm(handleAddCategory)}>
+      <form onSubmit={handleSubmitForm(handleAddEvent)}>
         <ModalContent className="m-4">
           <ModalHeader>Add Event</ModalHeader>
           <ModalBody>
@@ -117,6 +118,7 @@ const AddEventModal = (props: PropTypes) => {
                       isInvalid={errors.category !== undefined}
                       errorMessage={errors.category?.message}
                       onSelectionChange={(value) => onChange(value)}
+                      placeholder="Search category here..."
                     >
                       {(category: ICategory) => (
                         <AutocompleteItem key={`${category._id}`}>
@@ -129,11 +131,12 @@ const AddEventModal = (props: PropTypes) => {
                 <Controller
                   name="startDate"
                   control={control}
-                  render={({ field: { onChange, ...field } }) => (
+                  render={({ field }) => (
                     <DatePicker
                       {...field}
                       label="Start Date"
                       variant="bordered"
+                      defaultValue={now(getLocalTimeZone())}
                       hideTimeZone
                       showMonthAndYearPickers
                       isInvalid={errors.startDate !== undefined}
@@ -144,11 +147,12 @@ const AddEventModal = (props: PropTypes) => {
                 <Controller
                   name="endDate"
                   control={control}
-                  render={({ field: { onChange, ...field } }) => (
+                  render={({ field }) => (
                     <DatePicker
                       {...field}
                       label="End Date"
                       variant="bordered"
+                      defaultValue={now(getLocalTimeZone())}
                       hideTimeZone
                       showMonthAndYearPickers
                       isInvalid={errors.endDate !== undefined}
@@ -159,7 +163,7 @@ const AddEventModal = (props: PropTypes) => {
                 <Controller
                   name="isPublished"
                   control={control}
-                  render={({ field: { onChange, ...field } }) => (
+                  render={({ field }) => (
                     <Select
                       {...field}
                       label="Status"
@@ -169,7 +173,7 @@ const AddEventModal = (props: PropTypes) => {
                       disallowEmptySelection
                     >
                       <SelectItem key="true" value="true">
-                        Published
+                        Publish
                       </SelectItem>
                       <SelectItem key="false" value="false">
                         Draft
@@ -180,7 +184,7 @@ const AddEventModal = (props: PropTypes) => {
                 <Controller
                   name="isFeatured"
                   control={control}
-                  render={({ field: { onChange, ...field } }) => (
+                  render={({ field }) => (
                     <Select
                       {...field}
                       label="Featured"
@@ -199,6 +203,27 @@ const AddEventModal = (props: PropTypes) => {
                   )}
                 />
                 <Controller
+                  name="isOnline"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      label="Online / Offline"
+                      variant="bordered"
+                      isInvalid={errors.isOnline !== undefined}
+                      errorMessage={errors.isOnline?.message}
+                      disallowEmptySelection
+                    >
+                      <SelectItem key="true" value="true">
+                        Online
+                      </SelectItem>
+                      <SelectItem key="false" value="false">
+                        Offline
+                      </SelectItem>
+                    </Select>
+                  )}
+                />
+                <Controller
                   name="description"
                   control={control}
                   render={({ field }) => (
@@ -208,7 +233,6 @@ const AddEventModal = (props: PropTypes) => {
                       variant="bordered"
                       isInvalid={errors.description !== undefined}
                       errorMessage={errors.description?.message}
-                      className="mb-2"
                     />
                   )}
                 />
@@ -245,7 +269,7 @@ const AddEventModal = (props: PropTypes) => {
                 <Controller
                   name="latitude"
                   control={control}
-                  render={({ field: { onChange, ...field } }) => (
+                  render={({ field }) => (
                     <Input
                       {...field}
                       label="Latitude"
@@ -258,7 +282,7 @@ const AddEventModal = (props: PropTypes) => {
                 <Controller
                   name="longitude"
                   control={control}
-                  render={({ field: { onChange, ...field } }) => (
+                  render={({ field }) => (
                     <Input
                       {...field}
                       label="Longitude"
@@ -299,7 +323,7 @@ const AddEventModal = (props: PropTypes) => {
               Cancel
             </Button>
             <Button color="danger" type="submit" disabled={disabledSubmit}>
-              {isPendingMutateAddCategory ? (
+              {isPendingMutateAddEvent ? (
                 <Spinner size="sm" color="white" />
               ) : (
                 "Create Event"

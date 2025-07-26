@@ -1,17 +1,9 @@
 import DataTable from "@/components/ui/DataTable";
-import {
-  Button,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  useDisclosure,
-} from "@nextui-org/react";
+import { useDisclosure } from "@nextui-org/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Key, ReactNode, useCallback, useEffect } from "react";
-import { CiMenuKebab } from "react-icons/ci";
-import { COLUMN_LIST_CATEGORY } from "./Category.constants";
+import { COLUMN_LISTS_CATEGORY } from "./Category.constants";
 import useCategory from "./useCategory";
 import AddCategoryModal from "./AddCategoryModal";
 import DeleteCategoryModal from "./DeleteCategoryModal";
@@ -19,7 +11,7 @@ import useChangeUrl from "@/hooks/useChangeUrl";
 import DropdownAction from "@/components/commons/DropdownAction";
 
 const Category = () => {
-  const { push, query, isReady } = useRouter();
+  const { push, isReady, query } = useRouter();
   const {
     dataCategory,
     isLoadingCategory,
@@ -32,7 +24,6 @@ const Category = () => {
 
   const addCategoryModal = useDisclosure();
   const deleteCategoryModal = useDisclosure();
-
   const { setUrl } = useChangeUrl();
 
   useEffect(() => {
@@ -74,7 +65,7 @@ const Category = () => {
       {Object.keys(query).length > 0 && (
         <DataTable
           buttonTopContentLabel="Create Category"
-          columns={COLUMN_LIST_CATEGORY}
+          columns={COLUMN_LISTS_CATEGORY}
           data={dataCategory?.data || []}
           emptyContent="Category is empty"
           isLoading={isLoadingCategory || isRefetchingCategory}

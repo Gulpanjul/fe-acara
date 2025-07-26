@@ -1,4 +1,4 @@
-import { LIMIT_LIST } from "@/constants/list-constants";
+import { LIMIT_LIST } from "@/constants/list.constants";
 import useChangeUrl from "@/hooks/useChangeUrl";
 import { cn } from "@/utils/cn";
 import {

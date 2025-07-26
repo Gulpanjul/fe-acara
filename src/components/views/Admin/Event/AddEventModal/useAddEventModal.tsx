@@ -1,11 +1,14 @@
-import { DELAY } from "@/constants/list-constants";
+import { DELAY } from "@/constants/list.constants";
 import { ToasterContext } from "@/contexts/ToasterContext";
 import useDebounce from "@/hooks/useDebounce";
 import useMediaHandling from "@/hooks/useMediaHandling";
 import categoryServices from "@/services/category.service";
 import eventServices from "@/services/event.service";
 import { ICategory } from "@/types/Category";
+import { IEvent, IEventForm } from "@/types/Event";
+import { toDateStandard } from "@/utils/date";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { getLocalTimeZone, now } from "@internationalized/date";
 import { DateValue } from "@nextui-org/react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
@@ -25,8 +28,8 @@ const schema = yup.object().shape({
   isOnline: yup.string().required("Please select online or offline"),
   region: yup.string().required("Please select region"),
   longitude: yup.string().required("Please input longitude coordinate"),
-  latitude: yup.string().required("Please input latitude coordinate"),
-  banner: yup.mixed<FileList | string>().required("Please input icon"),
+  latitude: yup.string().required("Please select latitude coordinate"),
+  banner: yup.mixed<FileList | string>().required("Please input banner"),
 });
 
 const useAddEventModal = () => {
@@ -55,6 +58,9 @@ const useAddEventModal = () => {
   const preview = watch("banner");
   const fileUrl = getValues("banner");
 
+  setValue("startDate", now(getLocalTimeZone()));
+  setValue("endDate", now(getLocalTimeZone()));
+
   const handleUploadBanner = (
     files: FileList,
     onChange: (files: FileList | undefined) => void,
@@ -82,13 +88,13 @@ const useAddEventModal = () => {
   const { data: dataCategory } = useQuery({
     queryKey: ["Categories"],
     queryFn: () => categoryServices.getCategories(),
-    enabled: router.isReady,
+    enabled: true,
   });
 
   const [searchRegency, setSearchRegency] = useState("");
 
   const { data: dataRegion } = useQuery({
-    queryKey: ["Region", searchRegency],
+    queryKey: ["region", searchRegency],
     queryFn: () => eventServices.searchLocationByRegency(`${searchRegency}`),
     enabled: searchRegency !== "",
   });
@@ -97,17 +103,17 @@ const useAddEventModal = () => {
     debounce(() => setSearchRegency(region), DELAY);
   };
 
-  const addCategory = async (payload: ICategory) => {
-    const res = await categoryServices.addCategory(payload);
+  const addEvent = async (payload: IEvent) => {
+    const res = await eventServices.addEvent(payload);
     return res;
   };
 
   const {
-    mutate: mutateAddCategory,
-    isPending: isPendingMutateAddCategory,
-    isSuccess: isSuccessMutateAddCategory,
+    mutate: mutateAddEvent,
+    isPending: isPendingMutateAddEvent,
+    isSuccess: isSuccessMutateAddEvent,
   } = useMutation({
-    mutationFn: addCategory,
+    mutationFn: addEvent,
     onError: (error) => {
       setToaster({
         type: "error",
@@ -123,16 +129,31 @@ const useAddEventModal = () => {
     },
   });
 
-  const handleAddCategory = (data: ICategory) => mutateAddCategory(data);
+  const handleAddEvent = (data: IEventForm) => {
+    const payload = {
+      ...data,
+      isFeatured: Boolean(data.isFeatured),
+      isPublished: Boolean(data.isPublished),
+      isOnline: Boolean(data.isOnline),
+      startDate: toDateStandard(data.startDate),
+      endDate: toDateStandard(data.endDate),
+      location: {
+        region: data.region,
+        coordinates: [Number(data.latitude), Number(data.longitude)],
+      },
+      banner: data.banner,
+    };
+    mutateAddEvent(payload);
+  };
 
   return {
     control,
     errors,
     reset,
     handleSubmitForm,
-    handleAddCategory,
-    isPendingMutateAddCategory,
-    isSuccessMutateAddCategory,
+    handleAddEvent,
+    isPendingMutateAddEvent,
+    isSuccessMutateAddEvent,
 
     preview,
     handleUploadBanner,
@@ -144,7 +165,7 @@ const useAddEventModal = () => {
     dataCategory,
     dataRegion,
     searchRegency,
-    handleSearchRegion
+    handleSearchRegion,
   };
 };
 
