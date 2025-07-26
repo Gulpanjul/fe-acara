@@ -1,21 +1,13 @@
 import DataTable from "@/components/ui/DataTable";
-import {
-  Button,
-  Chip,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  useDisclosure,
-} from "@nextui-org/react";
+import { Chip, useDisclosure } from "@nextui-org/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Key, ReactNode, useCallback, useEffect } from "react";
-import { CiMenuKebab } from "react-icons/ci";
 import useChangeUrl from "@/hooks/useChangeUrl";
 import useEvent from "./useEvent";
 import { COLUMN_LIST_EVENT } from "./Event.constants";
 import DropdownAction from "@/components/commons/DropdownAction";
+import AddEventModal from "./AddEventModal";
 
 const Event = () => {
   const { push, query, isReady } = useRouter();
@@ -54,12 +46,16 @@ const Event = () => {
               height={100}
             />
           );
-          case "isPublish":
-            return (
-                <Chip color={cellValue ? "success" : "warning"} size="sm" variant="flat">
-                    {cellValue ? "Published" : "Unpublished"}
-                </Chip>
-            )
+        case "isPublish":
+          return (
+            <Chip
+              color={cellValue ? "success" : "warning"}
+              size="sm"
+              variant="flat"
+            >
+              {cellValue ? "Published" : "Unpublished"}
+            </Chip>
+          );
         case "actions":
           return (
             <DropdownAction
@@ -88,6 +84,10 @@ const Event = () => {
           totalPages={dataEvents?.pagination.totalPages}
         />
       )}
+      <AddEventModal
+        {...addEventModal}
+        refetchEvents={refetchEvents}
+      />
     </section>
   );
 };
