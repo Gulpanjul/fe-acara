@@ -11,7 +11,7 @@ import {
 } from "@nextui-org/react";
 import useInfoTab from "./useInfoTab";
 import { Controller } from "react-hook-form";
-import { use, useEffect } from "react";
+import { useEffect } from "react";
 
 interface PropTypes {
   dataCategory: ICategory;
@@ -44,7 +44,7 @@ const InfoTab = (props: PropTypes) => {
   return (
     <Card className="w-full p-4 lg:w-1/2">
       <CardHeader className="flex-col items-center">
-        <h1 className="w-full font-bold file:text-xl">Category Information</h1>
+        <h1 className="w-full text-xl font-bold">Category Information</h1>
         <p className="w-full text-small text-default-400">
           Manage information of this category
         </p>
@@ -72,7 +72,10 @@ const InfoTab = (props: PropTypes) => {
               )}
             />
           </Skeleton>
-          <Skeleton isLoaded={!!dataCategory?.description} className="rounded-lg">
+          <Skeleton
+            isLoaded={!!dataCategory?.description}
+            className="rounded-lg"
+          >
             <Controller
               name="description"
               control={controlUpdateInfo}
@@ -84,7 +87,6 @@ const InfoTab = (props: PropTypes) => {
                   variant="bordered"
                   isInvalid={errorsUpdateInfo.description !== undefined}
                   errorMessage={errorsUpdateInfo.description?.message}
-                  className="mb-2"
                 />
               )}
             />

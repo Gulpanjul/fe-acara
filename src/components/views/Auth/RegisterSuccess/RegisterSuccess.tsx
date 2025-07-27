@@ -14,7 +14,7 @@ const RegisterSuccess = () => {
           height={180}
         />
         <Image
-          src="/images/illustration/email-send.svg"
+          src="/images/illustrations/email-send.svg"
           alt="success"
           width={300}
           height={300}
@@ -25,7 +25,7 @@ const RegisterSuccess = () => {
           Create Account Success
         </h1>
         <p className="text-xl font-bold text-default-500">
-          check your email for account activation
+          Check your email for account activation
         </p>
         <Button
           className="mt-4 w-fit"

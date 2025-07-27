@@ -41,11 +41,10 @@ const IconTab = (props: PropTypes) => {
       resetUpdateIcon();
     }
   }, [isSuccessUpdate]);
-
   return (
     <Card className="w-full p-4 lg:w-1/2">
       <CardHeader className="flex-col items-center">
-        <h1 className="w-full font-bold file:text-xl">Category Icon</h1>
+        <h1 className="w-full text-xl font-bold">Category Icon</h1>
         <p className="w-full text-small text-default-400">
           Manage icon of this category
         </p>

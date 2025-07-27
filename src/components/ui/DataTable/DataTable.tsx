@@ -1,4 +1,4 @@
-import { LIMIT_LIST } from "@/constants/list.constants";
+import { LIMIT_LISTS } from "@/constants/list.constants";
 import useChangeUrl from "@/hooks/useChangeUrl";
 import { cn } from "@/utils/cn";
 import {
@@ -31,6 +31,14 @@ interface PropTypes {
 
 const DataTable = (props: PropTypes) => {
   const {
+    currentLimit,
+    currentPage,
+    handleChangeLimit,
+    handleChangePage,
+    handleSearch,
+    handleClearSearch,
+  } = useChangeUrl();
+  const {
     buttonTopContentLabel,
     columns,
     data,
@@ -41,16 +49,7 @@ const DataTable = (props: PropTypes) => {
     totalPages,
   } = props;
 
-  const {
-    currentLimit,
-    currentPage,
-    handleChangeLimit,
-    handleChangePage,
-    handleSearch,
-    handleClearSearch,
-  } = useChangeUrl();
-
-  const topContent = useMemo(() => {
+  const TopContent = useMemo(() => {
     return (
       <div className="flex flex-col-reverse items-start justify-between gap-y-4 lg:flex-row lg:items-center">
         <Input
@@ -70,8 +69,8 @@ const DataTable = (props: PropTypes) => {
     );
   }, [
     buttonTopContentLabel,
-    handleClearSearch,
     handleSearch,
+    handleClearSearch,
     onClickButtonTopContent,
   ]);
 
@@ -87,7 +86,7 @@ const DataTable = (props: PropTypes) => {
           startContent={<p className="text-small">Show:</p>}
           disallowEmptySelection
         >
-          {LIMIT_LIST.map((item) => (
+          {LIMIT_LISTS.map((item) => (
             <SelectItem key={item.value} value={item.value}>
               {item.label}
             </SelectItem>
@@ -106,7 +105,13 @@ const DataTable = (props: PropTypes) => {
         )}
       </div>
     );
-  }, [currentLimit, currentPage, totalPages, handleChangeLimit, handleClearSearch]);
+  }, [
+    currentLimit,
+    currentPage,
+    totalPages,
+    handleChangeLimit,
+    handleChangePage,
+  ]);
 
   return (
     <Table
@@ -116,7 +121,7 @@ const DataTable = (props: PropTypes) => {
         base: "max-w-full",
         wrapper: cn({ "overflow-x-hidden": isLoading }),
       }}
-      topContent={topContent}
+      topContent={TopContent}
       topContentPlacement="outside"
     >
       <TableHeader columns={columns}>

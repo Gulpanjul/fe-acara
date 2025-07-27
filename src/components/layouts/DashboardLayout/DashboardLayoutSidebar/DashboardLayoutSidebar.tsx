@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { JSX } from "react";
 import { CiLogout } from "react-icons/ci";
 
-interface Sidebaritem {
+interface SidebarItem {
   key: string;
   label: string;
   href: string;
@@ -15,7 +15,7 @@ interface Sidebaritem {
 }
 
 interface PropTypes {
-  sidebarItems: Sidebaritem[];
+  sidebarItems: SidebarItem[];
   isOpen: boolean;
 }
 
@@ -30,7 +30,7 @@ const DashboardLayoutSidebar = (props: PropTypes) => {
       )}
     >
       <div>
-        <div className="flex w-full justify-center">
+        <div className="flex justify-center">
           <Image
             src="/images/general/logo.svg"
             alt="logo"
@@ -81,4 +81,5 @@ const DashboardLayoutSidebar = (props: PropTypes) => {
     </div>
   );
 };
+
 export default DashboardLayoutSidebar;

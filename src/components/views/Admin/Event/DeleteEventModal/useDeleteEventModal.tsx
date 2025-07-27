@@ -30,6 +30,7 @@ const useDeleteEventModal = () => {
       });
     },
   });
+  
   return {
     mutateDeleteEvent,
     isPendingMutateDeleteEvent,

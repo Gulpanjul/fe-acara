@@ -7,7 +7,7 @@ import {
   ModalHeader,
   Spinner,
 } from "@nextui-org/react";
-import React, { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import useDeleteEventModal from "./useDeleteEventModal";
 
 interface PropTypes {

@@ -17,7 +17,6 @@ const useInfoTab = () => {
   } = useForm({
     resolver: yupResolver(schemaUpdateInfo),
   });
-
   return {
     controlUpdateInfo,
     errorsUpdateInfo,

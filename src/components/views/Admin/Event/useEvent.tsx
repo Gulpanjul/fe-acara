@@ -7,11 +7,10 @@ import { useState } from "react";
 const useEvent = () => {
   const [selectedId, setSelectedId] = useState<string>("");
   const router = useRouter();
-
   const { currentLimit, currentPage, currentSearch } = useChangeUrl();
 
   const getEvents = async () => {
-    let params = `?limit=${currentLimit}&page=${currentPage}`;
+    let params = `limit=${currentLimit}&page=${currentPage}`;
     if (currentSearch) {
       params += `&search=${currentSearch}`;
     }

@@ -1,5 +1,4 @@
 import { Tab, Tabs } from "@nextui-org/react";
-import React from "react";
 import IconTab from "./IconTab";
 import InfoTab from "./InfoTab";
 import useDetailCategory from "./useDetailCategory";

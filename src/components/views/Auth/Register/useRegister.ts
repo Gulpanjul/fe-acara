@@ -67,7 +67,7 @@ const useRegister = () => {
       reset();
       setToaster({
         type: "success",
-        message: "Register success",
+        message: "Register Success",
       });
       router.push("/auth/register/success");
     },

@@ -6,7 +6,7 @@ import { ReactNode, useContext, useEffect } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 interface PropTypes {
@@ -21,10 +21,12 @@ const AppShell = (props: PropTypes) => {
     const timeout = setTimeout(() => {
       setToaster(defaultToaster);
     }, 3000);
+
     return () => {
       clearTimeout(timeout);
     };
   }, [toaster]);
+
   return (
     <main className={cn(inter.className)}>
       {children}

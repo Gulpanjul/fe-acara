@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
 interface IToaster {
   type: string;
@@ -20,7 +20,7 @@ const ToasterContext = createContext<IToasterState>({
   setToaster: () => {},
 });
 
-const ToasterProvider = ({ children }: { children: React.ReactNode }) => {
+const ToasterProvider = ({ children }: { children: ReactNode }) => {
   const [toaster, setToaster] = useState<IToaster>(defaultToaster);
 
   return (

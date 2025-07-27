@@ -32,7 +32,6 @@ export async function middleware(request: NextRequest) {
     if (pathname === "/admin") {
         return NextResponse.redirect(new URL("/admin/dashboard", request.url));
     }
-
   }
 
   if (pathname.startsWith("/member")) {

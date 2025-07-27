@@ -1,9 +1,9 @@
 import PageHead from "@/components/commons/PageHead";
-import { Fragment, ReactNode } from "react";
+import { ReactNode } from "react";
 
 interface PropTypes {
-  title?: string;
   children: ReactNode;
+  title?: string;
 }
 
 const AuthLayout = (props: PropTypes) => {

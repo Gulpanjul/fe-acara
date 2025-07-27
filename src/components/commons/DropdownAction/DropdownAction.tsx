@@ -5,7 +5,6 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/react";
-import { on } from "events";
 import { CiMenuKebab } from "react-icons/ci";
 
 interface PropTypes {

@@ -44,4 +44,5 @@ const DashboardLayout = (props: PropTypes) => {
     </>
   );
 };
+
 export default DashboardLayout;

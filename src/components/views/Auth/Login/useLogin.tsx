@@ -3,7 +3,6 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ILogin } from "@/types/Auth";
-import authServices from "@/services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
@@ -45,7 +44,7 @@ const useLogin = () => {
 
   const { mutate: mutateLogin, isPending: isPendingLogin } = useMutation({
     mutationFn: loginService,
-    onError() {
+    onError: () => {
       setToaster({
         type: "error",
         message: "Your credential is wrong",

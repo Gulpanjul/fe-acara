@@ -1,7 +1,7 @@
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import DetailEvent from "@/components/views/Admin/DetailEvent";
 
-const AdminDetailCategoryPage = () => {
+const AdminDetailEventPage = () => {
   return (
     <DashboardLayout
       title="Detail Event"
@@ -13,4 +13,4 @@ const AdminDetailCategoryPage = () => {
   );
 };
 
-export default AdminDetailCategoryPage;
+export default AdminDetailEventPage;

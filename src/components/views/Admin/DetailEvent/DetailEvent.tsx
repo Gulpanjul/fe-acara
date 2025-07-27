@@ -1,5 +1,4 @@
 import { Tab, Tabs } from "@nextui-org/react";
-import React from "react";
 import CoverTab from "./CoverTab";
 import InfoTab from "./InfoTab";
 import useDetailEvent from "./useDetailEvent";

@@ -34,8 +34,8 @@ interface JWTExtended extends JWT {
 export type {
   IRegister,
   IActivation,
-  ILogin,
-  UserExtended,
-  SessionExtended,
   JWTExtended,
+  SessionExtended,
+  UserExtended,
+  ILogin,
 };
