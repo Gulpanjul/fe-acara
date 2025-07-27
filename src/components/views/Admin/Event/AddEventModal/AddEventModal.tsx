@@ -20,7 +20,6 @@ import InputFile from "@/components/ui/InputFile";
 import { useEffect } from "react";
 import { ICategory } from "@/types/Category";
 import { IRegency } from "@/types/Event";
-import { getLocalTimeZone, now } from "@internationalized/date";
 
 interface PropTypes {
   isOpen: boolean;
@@ -136,7 +135,6 @@ const AddEventModal = (props: PropTypes) => {
                       {...field}
                       label="Start Date"
                       variant="bordered"
-                      defaultValue={now(getLocalTimeZone())}
                       hideTimeZone
                       showMonthAndYearPickers
                       isInvalid={errors.startDate !== undefined}
@@ -152,7 +150,6 @@ const AddEventModal = (props: PropTypes) => {
                       {...field}
                       label="End Date"
                       variant="bordered"
-                      defaultValue={now(getLocalTimeZone())}
                       hideTimeZone
                       showMonthAndYearPickers
                       isInvalid={errors.endDate !== undefined}
