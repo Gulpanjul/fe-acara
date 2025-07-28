@@ -4,7 +4,7 @@ import Banner from "@/components/views/Admin/Banner";
 const AdminBannerPage = () => {
   return (
     <DashboardLayout
-      title="Category"
+      title="Banner"
       description="List of all banners, create new banner, and manage existing banners."
       type="admin"
     >
