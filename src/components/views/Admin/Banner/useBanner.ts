@@ -1,6 +1,5 @@
 import useChangeUrl from "@/hooks/useChangeUrl";
 import bannerServices from "@/services/banner.service";
-import categoryServices from "@/services/category.service";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import { useState } from "react";
