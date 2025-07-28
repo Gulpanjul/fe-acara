@@ -158,15 +158,15 @@ const AddEventModal = (props: PropTypes) => {
                   )}
                 />
                 <Controller
-                  name="isPublished"
+                  name="isPublish"
                   control={control}
                   render={({ field }) => (
                     <Select
                       {...field}
                       label="Status"
                       variant="bordered"
-                      isInvalid={errors.isPublished !== undefined}
-                      errorMessage={errors.isPublished?.message}
+                      isInvalid={errors.isPublish !== undefined}
+                      errorMessage={errors.isPublish?.message}
                       disallowEmptySelection
                     >
                       <SelectItem key="true" value="true">
@@ -261,6 +261,19 @@ const AddEventModal = (props: PropTypes) => {
                         </AutocompleteItem>
                       )}
                     </Autocomplete>
+                  )}
+                />
+                <Controller
+                  name="address"
+                  control={control}
+                  render={({ field }) => (
+                    <Input
+                      {...field}
+                      label="Address"
+                      variant="bordered"
+                      isInvalid={errors.address !== undefined}
+                      errorMessage={errors.address?.message}
+                    />
                   )}
                 />
                 <Controller
