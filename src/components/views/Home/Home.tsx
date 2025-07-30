@@ -1,9 +1,9 @@
 import { Skeleton } from "@nextui-org/react";
 import HomeEventList from "./HomeEventList";
-import HomeSlider from "./HomeSlider";
 import useHome from "./useHome";
 import Image from "next/image";
 import HomeCategoryList from "./HomeCategoryList";
+import HomeSlider from "./HomeSlider";
 
 const Home = () => {
   const {
