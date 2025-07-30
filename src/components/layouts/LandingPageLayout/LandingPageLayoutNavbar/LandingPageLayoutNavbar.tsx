@@ -31,13 +31,7 @@ const LandingPageLayoutNavbar = () => {
   const { dataProfile } = useLandingPageLayoutNavbar();
 
   return (
-    <Navbar
-      maxWidth="full"
-      className="max-w-screen-3xl 3xl:container"
-      isBordered
-      isBlurred={false}
-      shouldHideOnScroll
-    >
+    <Navbar maxWidth="full" isBordered isBlurred={false} shouldHideOnScroll>
       <div className="flex items-center gap-8">
         <NavbarBrand as={Link} href="/">
           <Image
@@ -90,7 +84,9 @@ const LandingPageLayoutNavbar = () => {
                 <DropdownItem
                   key="admin"
                   href="/admin/dashboard"
-                  className={cn({ hidden: dataProfile?.role !== "admin" })}
+                  className={cn({
+                    hidden: dataProfile?.role !== "admin",
+                  })}
                 >
                   Admin
                 </DropdownItem>
@@ -152,7 +148,7 @@ const LandingPageLayoutNavbar = () => {
                   onPress={() => signOut()}
                   className="mt-2 w-full"
                   variant="bordered"
-                  size="lg"
+                  size="md"
                 >
                   Log Out
                 </Button>
@@ -183,4 +179,3 @@ const LandingPageLayoutNavbar = () => {
 };
 
 export default LandingPageLayoutNavbar;
-//  28:19
