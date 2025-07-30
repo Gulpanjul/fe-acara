@@ -1,5 +1,10 @@
-import { LIMIT_BANNER, PAGE_DEFAULT } from "@/constants/list.constants";
+import {
+  LIMIT_BANNER,
+  LIMIT_EVENT,
+  PAGE_DEFAULT,
+} from "@/constants/list.constants";
 import bannerServices from "@/services/banner.service";
+import eventServices from "@/services/event.service";
 import { useQuery } from "@tanstack/react-query";
 
 const useHome = () => {
@@ -10,18 +15,40 @@ const useHome = () => {
     return data;
   };
 
-  const {
-    data: dataBanners,
-    isLoading: isLoadingBanners,
-  } = useQuery({
+  const { data: dataBanners, isLoading: isLoadingBanners } = useQuery({
     queryKey: ["Banners"],
-    queryFn: () => getBanners(),
+    queryFn: getBanners,
     enabled: true,
   });
+
+  const getEvents = async (params: string) => {
+    const res = await eventServices.getEvents(params);
+    const { data } = res;
+    return data;
+  };
+
+  const currentEventQuery = `limit=${LIMIT_BANNER}&page=${PAGE_DEFAULT}&isPublish=true`;
+
+  const { data: dataFeaturedEvents, isLoading: isLoadingFeaturedEvents } =
+    useQuery({
+      queryKey: ["FeaturedEvents"],
+      queryFn: () => getEvents(`${currentEventQuery}&isFeatured=true`),
+    });
+
+  const { data: dataLatestEvents, isLoading: isLoadingLatestEvents } = useQuery(
+    {
+      queryKey: ["LatestEvents"],
+      queryFn: () => getEvents(currentEventQuery),
+    },
+  );
 
   return {
     dataBanners,
     isLoadingBanners,
+    dataFeaturedEvents,
+    isLoadingFeaturedEvents,
+    dataLatestEvents,
+    isLoadingLatestEvents,
   };
 };
 
