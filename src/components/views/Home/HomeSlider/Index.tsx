@@ -1,3 +1,3 @@
-import Home from "../Home";
+import HomeSlider from "./HomeSlider";
 
-export default Home;
+export default HomeSlider;

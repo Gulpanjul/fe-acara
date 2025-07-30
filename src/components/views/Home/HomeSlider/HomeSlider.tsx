@@ -3,8 +3,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import Image from "next/image";
+
 import { Skeleton } from "@nextui-org/react";
+import Image from "next/image";
 
 interface PropTypes {
   banners: IBanner[];
@@ -13,7 +14,6 @@ interface PropTypes {
 
 const HomeSlider = (props: PropTypes) => {
   const { banners, isLoadingBanners } = props;
-  console.log(banners);
   return (
     <div className="mx-6 mb-6 h-[25vw] lg:mx-0 lg:mb-16">
       {!isLoadingBanners ? (

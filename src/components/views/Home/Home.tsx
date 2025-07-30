@@ -1,8 +1,9 @@
 import { Skeleton } from "@nextui-org/react";
-import HomeList from "./HomeList";
-import HomeSlider from "./HomeSlider/HomeSlider";
+import HomeEventList from "./HomeEventList";
+import HomeSlider from "./HomeSlider";
 import useHome from "./useHome";
 import Image from "next/image";
+import HomeCategoryList from "./HomeCategoryList";
 
 const Home = () => {
   const {
@@ -12,6 +13,8 @@ const Home = () => {
     isLoadingFeaturedEvents,
     dataLatestEvents,
     isLoadingLatestEvents,
+    dataCategories,
+    isLoadingCategories,
   } = useHome();
   return (
     <div>
@@ -19,27 +22,31 @@ const Home = () => {
         banners={dataBanners?.data}
         isLoadingBanners={isLoadingBanners}
       />
-      <HomeList
+      <HomeEventList
         title="Featured Event"
         events={dataFeaturedEvents?.data}
         isLoading={isLoadingFeaturedEvents}
       />
       <Skeleton
         isLoaded={!isLoadingBanners}
-        className="mb-16 h-[20vw] w-full rounded-2xl"
+        className="mb-16 h-[20vw] w-full rounded-2xl px-6 lg:px-0"
       >
         <Image
           src={dataBanners && dataBanners?.data[1]?.image}
           alt="banner"
-          className="h-[20vw] w-full rounded-2xl object-cover"
+          className="h-[20vw] w-full rounded-2xl object-cover object-center"
           width={1920}
           height={800}
         />
       </Skeleton>
-      <HomeList
+      <HomeEventList
         title="Latest Event"
         events={dataLatestEvents?.data}
         isLoading={isLoadingLatestEvents}
+      />
+      <HomeCategoryList
+        categories={dataCategories?.data}
+        isLoading={isLoadingCategories}
       />
     </div>
   );

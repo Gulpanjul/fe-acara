@@ -40,7 +40,7 @@ const CardEvent = (props: PropTypes) => {
               {event?.name}
             </h2>
             <p className="mb-2 line-clamp-2">{event?.description}</p>
-            <p className="w-full text-foreground-500">
+            <p className="text-foreground-500">
               {convertTime(`${event?.startDate}`)}
             </p>
           </CardFooter>

@@ -2,13 +2,13 @@ import CardEvent from "@/components/ui/CardEvent";
 import { IEvent } from "@/types/Event";
 import Link from "next/link";
 
-interface PropsTypes {
+interface PropTypes {
   title: string;
   events: IEvent[];
   isLoading: boolean;
 }
 
-const HomeList = (props: PropsTypes) => {
+const HomeEventList = (props: PropTypes) => {
   const { title, events, isLoading } = props;
   return (
     <section className="mb-16">
@@ -39,4 +39,4 @@ const HomeList = (props: PropsTypes) => {
   );
 };
 
-export default HomeList;
+export default HomeEventList;
