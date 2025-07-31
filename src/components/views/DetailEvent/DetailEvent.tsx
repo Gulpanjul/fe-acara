@@ -10,11 +10,18 @@ import { FaClock, FaLocationDot } from "react-icons/fa6";
 import { convertTime } from "@/utils/date";
 import Image from "next/image";
 import { ITicket } from "@/types/Ticket";
-import DetailEventTicket from "./DetailEventTicket.tsx";
+import DetailEventTicket from "./DetailEventTicket";
+import DetailEventCart from "./DetailEventCart";
 
 const DetailEvent = () => {
-  const { dataEvent, isLoadingEvent, dataTicket, isLoadingTicket } =
-    useDetailEvent();
+  const {
+    dataEvent,
+    dataTicket,
+    dataTicketInCart,
+    cart,
+    handleAddToCart,
+    handleChangeQuantity,
+  } = useDetailEvent();
   return (
     <div className="px-8 md:p-0">
       <Skeleton className="h-6 w-1/4 rounded-lg" isLoaded={!!dataEvent?.name}>
@@ -89,13 +96,23 @@ const DetailEvent = () => {
                   <DetailEventTicket
                     key={`ticket-${ticket._id}`}
                     ticket={ticket}
+                    cart={cart}
+                    handleAddToCart={() =>
+                      handleAddToCart(ticket._id as string)
+                    }
                   />
                 ))}
               </div>
             </Tab>
           </Tabs>
         </div>
-        <div className="w-full lg:w-2/6"></div>
+        <div className="w-full lg:w-2/6">
+          <DetailEventCart
+            cart={cart}
+            dataTicketInCart={dataTicketInCart}
+            onChangeQuantity={handleChangeQuantity}
+          />
+        </div>
       </section>
     </div>
   );
