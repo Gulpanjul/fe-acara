@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 const useTicketTab = () => {
   const { query, isReady } = useRouter();
 
-  const getTicketByEventId = async () => {
-    const { data } = await ticketServices.getTicketByEventId(`${query.id}`);
+  const getTicketsByEventId = async () => {
+    const { data } = await ticketServices.getTicketsByEventId(`${query.id}`);
     return data.data;
   };
 
@@ -17,7 +17,7 @@ const useTicketTab = () => {
     isRefetching: isRefetchingTicket,
   } = useQuery({
     queryKey: ["Tickets"],
-    queryFn: getTicketByEventId,
+    queryFn: getTicketsByEventId,
     enabled: isReady,
   });
 
