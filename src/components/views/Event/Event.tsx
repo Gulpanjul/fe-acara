@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import useChangeUrl from "@/hooks/useChangeUrl";
 import EventFooter from "./EventFooter";
 import EventFilter from "./EventFilter.tsx/EventFilter";
+import Image from "next/image";
 
 const Event = () => {
   const router = useRouter();
@@ -34,11 +35,24 @@ const Event = () => {
               ))}
         </div>
         {!isLoadingEvents && dataEvents?.data?.length > 0 && (
-          <EventFooter
-            total={dataEvents?.pagination?.total}
-            totalPages={dataEvents?.pagination?.totalPages}
-          />
+          <EventFooter totalPages={dataEvents?.pagination?.totalPages} />
         )}
+
+        {dataEvents?.data?.length < 1 &&
+          !isLoadingEvents &&
+          !isRefetchingEvents && (
+            <div className="flex flex-col items-center justify-center gap-4 py-20">
+              <Image
+                src="/images/illustrations/no-data.svg"
+                alt="no-data"
+                width={200}
+                height={200}
+              />
+              <h2 className="text-center text-2xl font-bold text-danger">
+                Event is empty
+              </h2>
+            </div>
+          )}
       </div>
     </div>
   );

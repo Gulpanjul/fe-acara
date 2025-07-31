@@ -3,16 +3,15 @@ import useChangeUrl from "@/hooks/useChangeUrl";
 import { Pagination, Select, SelectItem } from "@nextui-org/react";
 
 interface PropTypes {
-  total: number;
   totalPages: number;
 }
 
 const EventFooter = (props: PropTypes) => {
   const { totalPages } = props;
-  const { currentLimit, handleChangeLimit, handleChangePage, currentPage } =
+  const { currentLimit, currentPage, handleChangeLimit, handleChangePage } =
     useChangeUrl();
   return (
-    <div className="lg:flex-rowlg:justify-between flex flex-col items-center justify-center gap-4">
+    <div className="flex flex-col items-center justify-center gap-4 lg:flex-row lg:justify-between">
       <Select
         className="max-w-28"
         size="md"

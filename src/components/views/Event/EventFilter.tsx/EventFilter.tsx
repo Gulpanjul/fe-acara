@@ -1,3 +1,5 @@
+import { Controller } from "react-hook-form";
+import useEventFilter from "./useEventFilter";
 import {
   Autocomplete,
   AutocompleteItem,
@@ -5,32 +7,33 @@ import {
   SelectItem,
   Skeleton,
 } from "@nextui-org/react";
-import React, { Fragment, useEffect } from "react";
-import { Controller } from "react-hook-form";
-import useEventFilter from "./useEventFilter";
 import { ICategory } from "@/types/Category";
 import useChangeUrl from "@/hooks/useChangeUrl";
+import { Fragment, useEffect } from "react";
 
 const EventFilter = () => {
   const { control, setValue, dataCategory, isSuccessGetCategory } =
     useEventFilter();
   const {
     handleChangeCategory,
-    handleChangeisOnline,
-    handleChangeisFeatured,
+    handleChangeIsOnline,
+    handleChangeIsFeatured,
     currentCategory,
     currentIsOnline,
     currentIsFeatured,
   } = useChangeUrl();
 
   useEffect(() => {
-    setValue("category", `${currentCategory}`);
-    setValue("isOnline", `${currentIsOnline}`);
-    setValue("isFeatured", `${currentIsFeatured}`);
+    if (currentCategory !== "") {
+      setValue("category", `${currentCategory}`);
+      setValue("isOnline", `${currentIsOnline}`);
+      setValue("isFeatured", `${currentIsFeatured}`);
+    }
   }, [isSuccessGetCategory]);
+
   return (
     <div className="h-fit w-full rounded-xl border p-4 lg:sticky lg:top-20 lg:w-80">
-      <h4 className="text-xl font-semibold">filter</h4>
+      <h4 className="text-xl font-semibold">Filter</h4>
       <div className="mt-4 flex flex-col gap-4">
         {isSuccessGetCategory ? (
           <Fragment>
@@ -70,7 +73,7 @@ const EventFilter = () => {
                   placeholder="Select online / offline"
                   variant="bordered"
                   defaultSelectedKeys={[`${currentIsOnline}`]}
-                  onChange={(e) => handleChangeisOnline(e.target.value)}
+                  onChange={(e) => handleChangeIsOnline(e.target.value)}
                 >
                   <SelectItem key="true" value="true">
                     Online
@@ -87,12 +90,12 @@ const EventFilter = () => {
               render={({ field: { onChange, ...field } }) => (
                 <Select
                   {...field}
-                  label="Feature"
+                  label="Featured"
                   labelPlacement="outside"
-                  placeholder="Select Feature Event"
+                  placeholder="Select Featured Event"
                   variant="bordered"
-                  defaultSelectedKeys={[`${currentIsOnline}`]}
-                  onChange={(e) => handleChangeisOnline(e.target.value)}
+                  defaultSelectedKeys={[`${currentIsFeatured}`]}
+                  onChange={(e) => handleChangeIsFeatured(e.target.value)}
                 >
                   <SelectItem key="true" value="true">
                     Yes

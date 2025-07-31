@@ -65,7 +65,7 @@ const useChangeUrl = () => {
     });
   };
 
-  const handleChangeisOnline = (isOnline: string) => {
+  const handleChangeIsOnline = (isOnline: string) => {
     router.push({
       query: {
         ...router.query,
@@ -75,7 +75,7 @@ const useChangeUrl = () => {
     });
   };
 
-  const handleChangeisFeatured = (isFeatured: string) => {
+  const handleChangeIsFeatured = (isFeatured: string) => {
     router.push({
       query: {
         ...router.query,
@@ -123,8 +123,8 @@ const useChangeUrl = () => {
     currentIsFeatured,
     currentIsOnline,
     handleChangeCategory,
-    handleChangeisFeatured,
-    handleChangeisOnline,
+    handleChangeIsFeatured,
+    handleChangeIsOnline,
   };
 };
 
