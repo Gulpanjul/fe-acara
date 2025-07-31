@@ -12,6 +12,8 @@ import Image from "next/image";
 import { ITicket } from "@/types/Ticket";
 import DetailEventTicket from "./DetailEventTicket";
 import DetailEventCart from "./DetailEventCart";
+import Script from "next/script";
+import environment from "@/config/environment";
 
 const DetailEvent = () => {
   const {
@@ -21,9 +23,16 @@ const DetailEvent = () => {
     cart,
     handleAddToCart,
     handleChangeQuantity,
+    mutateCreateOrder,
+    isPendingCreateOrder,
   } = useDetailEvent();
   return (
-    <div className="px-8 md:p-0">
+    <div className="px-8 md:px-0">
+      <Script
+        src={environment.MIDTRANS_SNAP_URL}
+        data-client-key={environment.MIDTRANS_CLIENT_KEY}
+        strategy="lazyOnload"
+      />
       <Skeleton className="h-6 w-1/4 rounded-lg" isLoaded={!!dataEvent?.name}>
         <Breadcrumbs>
           <BreadcrumbItem href="/">Home</BreadcrumbItem>
@@ -46,7 +55,7 @@ const DetailEvent = () => {
             className="mb-2 h-6 w-1/2 rounded-lg"
             isLoaded={!!dataEvent?.startDate || !!dataEvent?.endDate}
           >
-            <div className="mb-2 flex items-center gap-2 text-foreground-500">
+            <div className="flex items-center gap-2 text-foreground-500">
               <FaClock width={16} />
               <p>
                 {convertTime(dataEvent?.startDate)} -{" "}
@@ -54,23 +63,28 @@ const DetailEvent = () => {
               </p>
             </div>
           </Skeleton>
-          <Skeleton isLoaded={!!dataEvent?.isOnline || !!dataEvent?.location}>
-            <div className="mb-2 flex items-center gap-2 text-foreground-500">
+          <Skeleton
+            className="mb-2 h-6 w-1/2 rounded-lg"
+            isLoaded={!!dataEvent?.isOnline || !!dataEvent?.location}
+          >
+            <div className="flex items-center gap-2 text-foreground-500">
               <FaLocationDot width={16} />
               <p>
                 {dataEvent?.isOnline ? "Online" : "Offline"}{" "}
-                {dataEvent?.isOnline ? "" : `- ${dataEvent?.location?.address}`}
+                {dataEvent?.isOnline
+                  ? ""
+                  : ` - ${dataEvent?.location?.address}`}
               </p>
             </div>
           </Skeleton>
           <Skeleton
-            className="aspect-video w-full"
+            className="mb-4 aspect-video w-full"
             isLoaded={!!dataEvent?.banner}
           >
             <Image
               alt="cover"
               src={dataEvent?.banner && dataEvent?.banner}
-              className="mb-4 aspect-video w-full rounded-lg object-cover"
+              className="aspect-video w-full rounded-lg object-cover"
               width={1920}
               height={1080}
             />
@@ -97,9 +111,7 @@ const DetailEvent = () => {
                     key={`ticket-${ticket._id}`}
                     ticket={ticket}
                     cart={cart}
-                    handleAddToCart={() =>
-                      handleAddToCart(ticket._id as string)
-                    }
+                    handleAddToCart={() => handleAddToCart(`${ticket._id}`)}
                   />
                 ))}
               </div>
@@ -111,6 +123,8 @@ const DetailEvent = () => {
             cart={cart}
             dataTicketInCart={dataTicketInCart}
             onChangeQuantity={handleChangeQuantity}
+            onCreateOrder={mutateCreateOrder}
+            isLoading={isPendingCreateOrder}
           />
         </div>
       </section>
