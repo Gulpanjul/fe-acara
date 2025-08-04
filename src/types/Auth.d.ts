@@ -1,5 +1,6 @@
 import { Session, User } from "next-auth";
 import { JWT } from "next-auth/jwt";
+import { Interface } from "readline";
 
 interface IRegister {
   fullName: string;
@@ -41,6 +42,12 @@ interface IProfile {
   username?: string;
 }
 
+interface IUpdatePassword {
+  oldPassword: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export type {
   IRegister,
   IActivation,
@@ -49,4 +56,5 @@ export type {
   UserExtended,
   ILogin,
   IProfile,
+  IUpdatePassword,
 };

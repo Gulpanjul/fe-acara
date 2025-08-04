@@ -4,7 +4,9 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 
 const schemaUpdatePicture = yup.object().shape({
-  profilePicture: yup.mixed<FileList | string>().required("Please input picture"),
+  profilePicture: yup
+    .mixed<FileList | string>()
+    .required("Please input picture"),
 });
 
 const usePictureTab = () => {

@@ -8,7 +8,6 @@ import {
   Skeleton,
   Spinner,
 } from "@nextui-org/react";
-import Image from "next/image";
 import usePictureTab from "./usePictureTab";
 import { Controller } from "react-hook-form";
 import { useEffect } from "react";
@@ -45,9 +44,9 @@ const PictureTab = (props: PropTypes) => {
   return (
     <Card className="w-full p-4 lg:w-1/3">
       <CardHeader className="flex-col items-center">
-        <h1 className="w-full text-xl font-bold">Event Picture</h1>
+        <h1 className="w-full text-xl font-bold">Profile Picture</h1>
         <p className="w-full text-small text-default-400">
-          Manage uicture of your profile
+          Manage picture for your profile
         </p>
       </CardHeader>
       <CardBody>

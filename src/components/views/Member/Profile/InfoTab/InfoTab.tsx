@@ -1,13 +1,9 @@
 import {
-  Autocomplete,
-  AutocompleteItem,
   Button,
   Card,
   CardBody,
   CardHeader,
   Input,
-  Select,
-  SelectItem,
   Skeleton,
   Spinner,
 } from "@nextui-org/react";
@@ -25,6 +21,7 @@ interface PropTypes {
 
 const InfoTab = (props: PropTypes) => {
   const { dataProfile, onUpdate, isPendingUpdate, isSuccessUpdate } = props;
+  
   const {
     controlUpdateInfo,
     errorsUpdateInfo,
@@ -47,7 +44,7 @@ const InfoTab = (props: PropTypes) => {
   return (
     <Card className="w-full p-4 lg:w-1/2">
       <CardHeader className="flex-col items-center">
-        <h1 className="w-full text-xl font-bold">UserInformation</h1>
+        <h1 className="w-full text-xl font-bold">User Information</h1>
         <p className="w-full text-small text-default-400">
           Manage information of this account
         </p>
