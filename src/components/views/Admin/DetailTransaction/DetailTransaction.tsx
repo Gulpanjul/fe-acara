@@ -11,11 +11,6 @@ const DetailTransaction = () => {
   const { dataTransaction, dataEvent, dataTicket } = useDetailTransaction();
   return (
     <Card className="px-5 py-4">
-      <Script
-        src={environment.MIDTRANS_SNAP_URL}
-        data-client-key={environment.MIDTRANS_CLIENT_KEY}
-        strategy="lazyOnload"
-      />
       <CardBody className="gap-8">
         <div className="flex flex-col gap-2">
           <h4 className="font-bold">Order:</h4>
@@ -121,17 +116,6 @@ const DetailTransaction = () => {
               )}
             </div>
           </div>
-        )}
-        {dataTransaction?.status === "pending" && (
-          <Button
-            color="danger"
-            className="w-fit"
-            onPress={() =>
-              (window as any).snap.pay(dataTransaction?.payment?.token)
-            }
-          >
-            Pay Now
-          </Button>
         )}
       </CardBody>
     </Card>
