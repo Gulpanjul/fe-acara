@@ -2,7 +2,7 @@ import AppShell from "@/components/commons/AppShell";
 import { ToasterProvider } from "@/contexts/ToasterContext";
 import { onErrorHandler } from "@/libs/axios/responseHandler";
 import "@/styles/globals.css";
-import { NextUIProvider } from "@nextui-org/react";
+import { HeroUIProvider } from "@heroui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
@@ -30,13 +30,13 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <QueryClientProvider client={queryClient}>
-        <NextUIProvider>
+        <HeroUIProvider>
           <ToasterProvider>
             <AppShell>
               <Component {...pageProps} />
             </AppShell>
           </ToasterProvider>
-        </NextUIProvider>
+        </HeroUIProvider>
       </QueryClientProvider>
     </SessionProvider>
   );

@@ -6,7 +6,7 @@ import {
   Select,
   SelectItem,
   Skeleton,
-} from "@nextui-org/react";
+} from "@heroui/react";
 import { ICategory } from "@/types/Category";
 import useChangeUrl from "@/hooks/useChangeUrl";
 import { Fragment, useEffect } from "react";
